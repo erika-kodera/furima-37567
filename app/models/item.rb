@@ -9,11 +9,14 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   validates :item_name,          presence: true
-  validates :info, :text,        presence: true
+  validates :info,               presence: true
   validates :category_id,        presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :condition_id,       presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :shipping_charge_id, presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :prefecture_id,      presence: true, numericality: { other_than: 1 , message: "can't be blank"}
   validates :shipping_time_id,   presence: true, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :price,              presence: true
+  with_options presence: true, format: { with: /\A[0-9]+\z/ } do
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
+                      presence: { message: "半角数字で¥300〜¥9,999,999で設定してください" }
+  end
 end
