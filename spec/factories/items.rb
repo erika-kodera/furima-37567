@@ -1,12 +1,16 @@
 FactoryBot.define do
   factory :item do
-    item_name             { Faker::Lorem }
-    info                  { Faker::Lorem.paragraph(sentence_count = 3) }
-    category_id           { Category.all.sample }
-    condition_id          { Condition.all.sample }
-    shipping_charge_id    { ShippingCharge.all.sample }
-    prefecture_id         { Prefecture.all.sample }
-    shipping_time_id      { ShippingTime.all.sample }
+    association :user
+    item_name             { Faker::Coffee.origin }
+    info                  { Faker::Lorem.sentence }
+    category_id           { 2 }
+    condition_id          { 4 }
+    shipping_charge_id    { 3 }
+    prefecture_id         { 24 }
+    shipping_time_id      { 4 }
     price                 { Faker::Number.between(from: 300, to: 9999999) }
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/omelette.png'), filename: 'omelette.png')
+    end
   end
 end
