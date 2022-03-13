@@ -19,6 +19,6 @@ class Item < ApplicationRecord
   with_options presence: true, format: { with: /\A[0-9]+\z/ } do
     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
                       presence: { message: "半角数字で¥300〜¥9,999,999で設定してください" }
+                      
   end
-  
 end

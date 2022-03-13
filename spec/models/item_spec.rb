@@ -10,7 +10,7 @@ RSpec.describe Item, type: :model do
           カテゴリー・商品の状態・配送料の負担・発送元の地域・発送迄の日数で「--」以外を選択していて、
           販売価格が入力されていているときに出品できる' do
           expect(@item).to be_valid
-          end
+      end
     end
   
     context "出品できないとき" do
@@ -82,27 +82,23 @@ RSpec.describe Item, type: :model do
         @item.shipping_charge_id = 'id:1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping charge can't be blank")
-
       end
       #発送元の地域
       it '発送元の地域がないと出品できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
-
       end
       it '発送元の地域が[--]だと出品できない' do
         @item.prefecture_id = 'id:1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
-
       end
       #発送までの日数
       it '発送までの日数がないと出品できない' do
         @item.shipping_time_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping time can't be blank")
-
       end
       it '発送までの日数が[--]だと出品できない' do
         @item.shipping_time_id = 'id:1'
@@ -125,7 +121,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
+      it '価格に半角数字以外が含まれている場合は出品できない' do
+        @item.price = '１０００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
     end
   end
 end
-
