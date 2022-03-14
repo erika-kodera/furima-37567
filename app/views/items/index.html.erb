@@ -130,7 +130,8 @@
 
     <% @items.each do |item| %>
       <li class='list'>
-        <%= link_to items_path(item) do %>
+        <%= link_to "#" do %>
+        <%#商品詳細」機能実装後上記の"#"に記入(items_path(item))%>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
           <%# 以下購入機能実装後にコメントアウト解除%>
