@@ -133,9 +133,9 @@
         <%= link_to items_path(item) do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
-
+          <%# 以下購入機能実装後にコメントアウト解除%>
           <%# if item.purchase_record.present? %>
-          <div class='sold-out'>
+          <%#<div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
           <%# end %>
