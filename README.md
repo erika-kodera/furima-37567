@@ -50,7 +50,7 @@
 ・belongs_to :user
 
 
-## delivery＿addresses テーブル
+## delivery_addresses テーブル
 
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
