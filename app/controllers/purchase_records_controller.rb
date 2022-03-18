@@ -11,6 +11,9 @@ class PurchaseRecordsController < ApplicationController
   end
   
   def create
+    
+    #binding.pry
+    
     @order = Order.new(purchase_record_params)
     if @order.valid?
       @order.save
@@ -23,7 +26,7 @@ class PurchaseRecordsController < ApplicationController
   private
 
   def purchase_record_params
-    params.require(:purchase_record).permit(:postal_code, :prefecture_id,
+    params.require(:order).permit(:postal_code, :prefecture_id,
                     :municipalities, :house_number, :building_name, :phone_number, :purchase_record).
             merge(user_id: current_user.id)
   end
