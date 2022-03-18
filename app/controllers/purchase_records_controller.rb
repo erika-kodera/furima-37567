@@ -1,20 +1,19 @@
 class PurchaseRecordsController < ApplicationController
-  def index
-    @purchase_record = PurchaseRecords.all
-  end
-  
-  def new
-    @purchase_record = PurchaseRecords.new
-  end
-  
+  before_action :authenticate_user!, except: :index
 
+  def index
+    @order = Order.new
+    @item_purchase_record = Item.find(params[:item_id])
+  end  
+
+  def new
+    @order = Order.new
+  end
+  
   def create
-    
-    binding.pry
-    
-    @purchase_record = PurchaseRecords.new(purchase_record_params)
-    if @purchase_record.valid?
-      @purchase_record.save
+    @order = Order.new(purchase_record_params)
+    if @order.valid?
+      @order.save
       redirect_to root_path
     else
       render :new
@@ -24,8 +23,8 @@ class PurchaseRecordsController < ApplicationController
   private
 
   def purchase_record_params
-    params.require(:purchase_record).
-    permit(:postal_code, :prefectures, :municipalities, :house_number, :building_name, :phone_number, :purchase_record).
-    merge(user_id: current_user.id)
+    params.require(:purchase_record).permit(:postal_code, :prefecture_id,
+                    :municipalities, :house_number, :building_name, :phone_number, :purchase_record).
+            merge(user_id: current_user.id)
   end
 end

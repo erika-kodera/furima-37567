@@ -51,6 +51,8 @@ class ItemsController < ApplicationController
   end
 
   def prevent_url
-    redirect_to action: :index if @item.user_id != current_user.id
+    if @item.user_id != current_user.id
+    redirect_to action: :index
+    end
   end
 end
