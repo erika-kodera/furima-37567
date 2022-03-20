@@ -15,9 +15,6 @@ class Order
 end
 
   def save
-    
-    binding.pry
-    
     purchase_record = PurchaseRecord.create(item_id: item_id, user_id: user_id)
     DeliveryAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, 
       municipalities: municipalities, house_number: house_number, phone_number: phone_number, building_name: building_name, 
