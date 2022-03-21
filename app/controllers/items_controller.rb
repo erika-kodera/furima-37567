@@ -21,9 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if @item.purchase_record != nil
-      redirect_to root_path
-    end
+    redirect_to root_path unless @item.purchase_record.nil?
   end
 
   def edit
@@ -54,8 +52,6 @@ class ItemsController < ApplicationController
   end
 
   def prevent_url
-    if @item.user_id != current_user.id
-    redirect_to action: :index
-    end
+    redirect_to action: :index if @item.user_id != current_user.id
   end
 end

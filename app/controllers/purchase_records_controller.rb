@@ -5,16 +5,16 @@ class PurchaseRecordsController < ApplicationController
 
   def index
     @order = Order.new
-  end  
+  end
 
   def new
     @order = Order.new
   end
-  
+
   def create
-      @order = Order.new(purchase_record_params)
+    @order = Order.new(purchase_record_params)
     if @order.valid?
-      Payjp.api_key = "sk_test_96d98e8a410b2d6aaaaa85e0"
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: Item.find(params[:item_id]).price,
         card: purchase_record_params[:token],
@@ -32,8 +32,8 @@ class PurchaseRecordsController < ApplicationController
 
   def purchase_record_params
     params.require(:order).permit(:postal_code, :prefecture_id,
-                    :municipalities, :house_number, :building_name, :phone_number, :purchase_record).
-            merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+                                  :municipalities, :house_number, :building_name, :phone_number, :purchase_record)
+          .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def item_find
@@ -41,8 +41,6 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def prevent_url
-    if @item_purchase_record.user_id == current_user.id || @item_purchase_record.purchase_record != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if @item_purchase_record.user_id == current_user.id || !@item_purchase_record.purchase_record.nil?
   end
 end
