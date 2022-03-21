@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :item_find, only: [:show, :edit, :update, :destroy]
   before_action :prevent_url, only: [:edit, :destroy]
-  before_action :sold_out_url, only: [:show, :edit]
+  before_action :sold_out_url, only: [:edit]
 
   def index
     @items = Item.all.order('id DESC')

@@ -1,13 +1,9 @@
 class PurchaseRecordsController < ApplicationController
   before_action :authenticate_user!
-  before_action :item_find, only: [:index, :new, :create]
-  before_action :prevent_url, only: [:index, :new, :create]
+  before_action :item_find, only: [:index, :create]
+  before_action :prevent_url, only: [:index, :create]
 
   def index
-    @order = Order.new
-  end
-
-  def new
     @order = Order.new
   end
 
