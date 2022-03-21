@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :item_find, only: [:show, :edit, :update, :destroy]
   before_action :prevent_url, only: [:edit, :destroy]
+  before_action :sold_out_url, only: [:show, :edit]
 
   def index
     @items = Item.all.order('id DESC')
@@ -21,7 +22,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    redirect_to root_path unless @item.purchase_record.nil?
   end
 
   def edit
@@ -53,5 +53,9 @@ class ItemsController < ApplicationController
 
   def prevent_url
     redirect_to action: :index if @item.user_id != current_user.id
+  end
+
+  def sold_out_url
+  redirect_to root_path unless @item.purchase_record.nil?
   end
 end
