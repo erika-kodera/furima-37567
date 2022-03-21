@@ -105,9 +105,6 @@ RSpec.describe Order, type: :model do
       # token
       it 'tokenが空では登録できないこと' do
         @order.token = ''
-        
-        binding.pry
-        
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
       end
