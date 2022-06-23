@@ -10,7 +10,7 @@ class PurchaseRecordsController < ApplicationController
   def create
     @order = Order.new(purchase_record_params)
     if @order.valid?
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       Payjp::Charge.create(
         amount: Item.find(params[:item_id]).price,
         card: purchase_record_params[:token],

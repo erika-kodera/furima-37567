@@ -56,6 +56,6 @@ class ItemsController < ApplicationController
   end
 
   def sold_out_url
-  redirect_to root_path unless @item.purchase_record.nil?
+    redirect_to root_path unless @item.purchase_record.nil?
   end
 end
