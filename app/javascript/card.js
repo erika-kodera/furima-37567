@@ -1,10 +1,10 @@
 const pay = () => {
   Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
-  const form = document.getElementById("charge-form");
+  const form = document.getElementById("item-price");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    const formResult = document.getElementById("charge-form");
+    const formResult = document.getElementById("item-price");
     const formData = new FormData(formResult);
 
     const card = {
