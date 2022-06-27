@@ -11,6 +11,7 @@ class Item < ApplicationRecord
   has_one :purchase_record
 
   validates :images, presence: true
+  validates :images, length: { minimum:1, maximum:5, message: "は1枚以上5枚以下にしてください" }
   validates :item_name,          presence: true, length: { maximum: 40 }
   validates :info,               presence: true, length: { maximum: 1000 }
   validates :category_id,        presence: true, numericality: { other_than: 1, message: "can't be blank" }
